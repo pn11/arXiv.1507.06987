@@ -1,0 +1,400 @@
+%  sample eprint article in LaTeX           --- M. Peskin, 9/7/00
+
+
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+
+\usepackage{bm} % 2015.07.24 Added
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% basic data for the eprint:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\textwidth=6.0in  \textheight=8.25in
+
+%%  Adjust these for your printer:
+\leftmargin=-0.3in   \topmargin=-0.20in
+
+%% preprint number data:
+%\newcommand\pubnumber{SNSN-323-63}
+\newcommand\pubnumber{}
+\newcommand\pubdate{\today}
+
+%%  address and funding acknowledgement data:
+\def\kobe{Department of Physics, Graduate School of Science, Kobe University,\\
+Kobe, Hyogo 657-8501, Japan}
+\def\kyoto{Department of Physics, Graduate School of Science, Kyoto University,\\
+Kitashirakawa Oiwake-cho, Sakyo-ku, Kyoto 606-8502, Japan}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   document style macros
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\Title#1{\begin{center} {\Large #1 } \end{center}}
+\def\Author#1{\begin{center}{ \sc #1} \end{center}}
+\def\Address#1{\begin{center}{ \it #1} \end{center}}
+\def\andauth{\begin{center}{and} \end{center}}
+\def\submit#1{\begin{center}Submitted to {\sl #1} \end{center}}
+\newcommand\pubblock{\rightline{\begin{tabular}{l} \pubnumber\\
+         \pubdate  \end{tabular}}}
+\newenvironment{Abstract}{\begin{quotation}  }{\end{quotation}}
+\newenvironment{Presented}{\begin{quotation} \begin{center} 
+             PRESENTED AT\end{center}\bigskip 
+      \begin{center}\begin{large}}{\end{large}\end{center} \end{quotation}}
+\def\Acknowledgements{\bigskip  \bigskip \begin{center} \begin{large}
+             \bf ACKNOWLEDGEMENTS \end{large}\end{center}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  personal abbreviations and macros
+%    the following package contains macros used in this document:
+\input econfmacros.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{titlepage}
+\pubblock
+
+\vfill
+\Title{Light Dark Matter Search with SOIPIX}
+\vfill
+\Author{Naoya Oka$^1$, Kentaro Miuchi$^1$, Takeshi G. Tsuru$^2$, Ayaki Takeda$^2$, and Hideaki Matsumura$^2$}
+\Address{$^1$\kobe}
+\Address{$^2$\kyoto}
+
+\vfill
+\begin{Abstract}
+We propose a light dark matter search experiment using an SOI pixel detector (SOIPIX).  The event-driven SOIPIX can be a powerful tool for detecting light WIMPs because of its low energy threshold ($<$ 1 keV) and high timing resolution (few $\mu$s). In this study, we evaluate the performance of an SOIPIX prototype detector and we examine the required specifications of SOIPIX for our target sensitivity.
+
+\end{Abstract}
+\vfill
+\begin{Presented}
+International Workshop on SOI Pixel Detector (SOIPIX2015)\\ 
+Tohoku University, Sendai, Japan, 3-6, June, 2015.
+\end{Presented}
+\vfill
+\end{titlepage}
+\def\thefootnote{\fnsymbol{footnote}}
+\setcounter{footnote}{0}
+%
+
+\section{Introduction}
+
+The existence of dark matter is supported by various astronomical observations.  However, its nature remains unknown.  Weakly interacting massive particles (WIMPs) are promising candidates.  WIMPs can weakly couple with ordinary matters and can be directly detected using WIMP-nucleon scattering.  Among the various models of WIMP models, one that is well-motivated is supersymmetric neutralino.  Since the neutralino is expected to have a mass of over 50 GeV/$c^2$, most of experiments aim at this mass region.  Currently, the most stringent limit on WIMP-nucleon cross section has been set by the LUX experiment for mass above 7 GeV/$c^2$ \cite{Akerib:2013tjd}.  Meanwhile, DAMA experiment has been observed annual modulation of its signal since the year 1998\cite{Bernabei:2013xsa}, which can be interpreted as originating from WIMPs with masses of a few GeV/$c^2$ or a few tens of GeV/$c^2$.  Furthermore, other experiments, such as CoGeNT\cite{Aalseth:2014eft} and CDMS-Si\cite{Agnese:2013rvf} have recently seen positive signals in this region.  WIMPs in this range are called light WIMPs or low-mass WIMPs.  Since those signals are inconsistent with the result from LUX and other experiments, much discussion is taking place on this topic and is not yet concluded. Our experiment aims to search for light WIMPs using an SOI Pixel detector. Fig.\ref{fig:limit} shows the regions where DAMA and other experiments saw positive signals as well as the limitting curves by LUX and other experiments.
+
+
+\begin{figure}[htb]
+\centering
+\includegraphics[height=8 cm]{limit_legend.eps}
+\caption{Lines are showing upper limits with 90\% C.L. on WIMP-nucleon spin-independent cross sections from DAMIC \cite{Barreto:2011zu} (black),  SuperCDMS (CDMSlite) \cite{Agnese:2013jaa} (cyan), CRESST-II  \cite{Angloher:2014myn}(dark red), and LUX \cite{Akerib:2013tjd} (blue). Shaded areas correspond to regions of positive signals from DAMA/LIBRA interpreted by Savage et al. \cite{Savage:2008er} (light green: with ion channeling, 5 $\sigma$) (yellow: without ion channeling, 5$\sigma$), CoGeNT \cite{Aalseth:2014eft} (magenta, 90\% C.L.), CRESST-II \cite{Angloher:2011uu} (dark red, 2$\sigma$), and CDMS-II Si \cite{Agnese:2013rvf} (cyan, 99\% C.L.).  The CRESST experiment once reported a positive light WIMP signal, but they found no excess in recent upgraded data. CDMS-II reported excess using silicon data but this excess was not seen in germanium data.  Only DAMA/LIBRA and CoGeNT perform annual modulation analysis.
+}
+\label{fig:limit}
+\end{figure}
+
+%\pagebreak
+
+\section{Direct detection of light WIMPs and preceding study}
+Velocity of WIMPs in our galaxy, $\bm{v}$, is considered to follow a Maxwell-Boltzmann distribution:
+\[
+f(\bm{v}) = e^{-\bm{v}^2/v_0^2}.
+\]
+The most probable speed of WIMPs $v_0$  is considered to be approximately 230 km/s \cite{Lewin:1995rx}. To detect WIMPs, we look for elastic (or sometimes inelastic) scattering of WIMP and nucleus.  In our case, silicon nuclei are the  targets for WIMPs.  Fig. \ref{fig:Sirecoil} shows the silicon's calculated recoil energy spectrum for WIMPs with masses of 10 GeV/c$^2$ and 100 GeV/c$^2$.  From this, we can see that, as the WIMP mass decreases, the fraction of lower energy events becomes larger.  Thus, a low energy threshold is the key for detection of light WIMPs.  Here, ``nr'' in keV$_{nr}$ stands for nuclear recoil, which can be by WIMPs, neutron, and so on.  Electron recoil, which can be by electrons, gammas, and so on is expressed with ``ee'' like keV$_{ee}$, which stands for electron-equivalent.  Because of an effect called ``quenching'', the observed energy of nuclear recoil with certain energy is smaller than that of electron recoil with the same energy.  Relative ionization yield by nuclear recoil compared to that of electron recoil is refered to as a quenching factor. Quenching factor depends on recoil energy and the detector material.  For silicon, it is about 0.2 at 1 keV$_{nr}$.  Currently, the DAMIC experiment has the world-lowest energy threshold among dark matter search experiments.  In 2011, using only 0.5 g of charge coupled devices (CCDs) with a 0.04 keV$_{ee}$ threshold, they have set a limit comparable with that of a kg-scale experiment \cite{Barreto:2011zu}.  Cosmogenic neutrons produced by cosmic-ray muons were their largest background (BG) contribution. Though those neutrons can be removed by active muon veto, this is not available for CCD because of its poor timing resolution (typically $\sim$ms).
+
+\begin{figure}[htb]
+\centering
+\includegraphics[height=8 cm]{recoil.eps}
+\caption{Expected energy spectrum of silicon recoil by WIMPs with masses of 10 GeV/$c^2$ and 100 GeV/$c^2$.  The WIMP-nucleon cross section is set to $10^{-40}$ cm$^2$. Detector responses, such as acceptance or quenching effects, are not considered in this figure.}
+\label{fig:Sirecoil}
+\end{figure}
+
+
+%\pagebreak
+
+\section{SOIPIX and its advantage}
+A Silicon-On-Insulator (SOI) Pixel detector (SOIPIX) is being developed by KEK and other institutes \cite{Arai:2011ara}.  It is monolithic and comprises a thick, high-resistivity substrate (sensor part), a thin, low-resistivity silicon layer (CMOS circuit part), and a buried oxide (BOX) layer (SiO$_2$ insulator) between them.  In SOIPIX, each pixel has its own readout circuit. Thus, by extracting trigger signal from each pixel, we can read pixel by pixel (event-driven readout), unlike a CCD, which has to read from all pixels every time (frame readout).  This contributes a good timing resolution (few $\mu$s), which enables us to take advantage of anti-coincidence measurement.  Event-driven SOIPIX are being developed by X-ray astronomy group of Cosmic Ray group, Kyoto University and they are called XRPIX series \cite{Tsuru:2014jfa,Takeda:2014tza}. Currently, $35\, e^-$ readout noise (RMS) is achieved with the frame readout mode of an XRPIX3b sensor\cite{Takeda:JINST}.  Since the average energy for electron-hole creation in silicon is approximately 3.6 eV, $35\, e^-$ approximately corresponds to 0.1 keV.  If we set the energy threshold for the WIMP search to 5 times the readout noise, a 0.5 keV$_{ee}$ threshold is already achievable. Currently, the noise in event-driven readout mode is larger than that in frame readout mode, but this will be improved.  We can identify particles by tracks using pixel image from SOIPIX just like DAMIC's CCD. Furthermore, we can reject BG by anti-coincidence, which cannot be performed with CCD.  Because of these advantages, we plan to use SOIPIX for the light WIMP search.
+
+\section{Performance test of the detector and simulation}
+We evaluated the performance of SOIPIX using XRPIX series detectors.  To date, tests at room temperature have been performed in the surface laboratory in Kobe university using the XRPIX2b sensor. For DAQ system, we used SEABAS (SOI Evaluation Board with SiTCP)\cite{Uchida:2008fha} that has two FPGA chips, one for controlling pixels and the other is for communicating with PC via Ethernet using a TCP/IP protocol.  Fig. \ref{fig:setup} shows our setup.
+
+
+\begin{figure}[htb]
+\centering
+\includegraphics[height=8 cm]{setup.eps}
+\caption{The setup of our performance test.  An XRPIX2b sensor is placed on the readout circuit board.  The test could be done on top of the table.}
+\label{fig:setup}
+\end{figure}
+
+
+Calibration data were taken with $^{241}$Am in frame readout mode.  A simple detector Monte Carlo simulation (MC) based on Geant4 \cite{Agostinelli:2002hh, Allison:2006ve} was developed and its results were compared with $^{241}$Am data. Fig. \ref{fig:spectrum} shows the energy spectrum of single-pixel events of $^{241}$Am and its MC.  Though it is a simple one, this MC reproduces each peak of $^{241}$Am well.  We are going to improve the MC with more detailed geometries and processes.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[height=8 cm]{spectrum.eps}
+\caption{Energy spectrum of single-pixel event data and MC of $^{241}$Am with the XRPIX2b sensor at room temperature. Energy calibration was done using 14 keV, 18 keV, 21 keV, and 26 keV peaks of $^{241}$Am.  Th energy threshold for each pixels was set to 4.5 keV.  The count rate of the MC is scaled to fit the 18 keV peak.}
+\label{fig:spectrum}
+\end{figure}
+
+\section{Estimation of sensitivity and the next step}
+
+Using the MC explained in the previous section, we estimated the sensitivity of the SOIPIX against light WIMPs as shown in Fig. \ref{fig:sensitivity}. For this plot, the energy threshold was set to 0.3 keV$_{ee}$ by assuming a readout noise of 15 $e^-$, and the exposure was set to 0.1 kg$\cdot$year.  The BG level of 10 keV/kg/day was assumed with a 99\% background reduction by muon veto from DAMIC's neutron BG \cite{Barreto:2011zu} . A reasonable reduction value is assumed considereing preceding studies\cite{Bungau:2005xp}.  We plan to evaluate the performance of BG reduction by anti-coincidence measurement this year by using scintillators as veto detectors. Furthermore, radioactive contamination will be measured to obtain more detailed information on BG.  The quenching factor was simply set to 0.2 for the eintire energy range. We are planning to evaluate this factor by coincidence measurement of neutrons and gammas from $^{252}$Cf.  To achieve the target sensitivity, we are planning to develop a new SOIPIX for the WIMP search. Our target specification and that of the current XRPIX series are shown in table \ref{tab:spec}.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[height=9 cm]{sensitivity.eps}
+\caption{Expected sensitivity to WIMPs with SOIPIX (shown in blue, 0.1 kg$\cdot$year) compared with other experiments; DAMA/LIBRA (pink), DAMIC (black), and SuperCDMS-CDMSlite (cyan). }
+\label{fig:sensitivity}
+\end{figure}
+
+
+
+\begin{table}[h]
+\begin{center}
+\caption{XRPIX series and our target specification}
+\begin{tabular}{c|cccc}  \hline
+     Sensor         & Mass  & Readout noise \\ \hline
+ current XRPIX  &   0.02 g (XRPIX2b) &   35 $e^-$ (XRPIX3b, -50 C$^\circ$, frame mode)\cite{Takeda:JINST}\\
+ target specification	 &  1 g     &    $< 15 e^-$ \\ \hline
+\end{tabular}
+\label{tab:spec}
+\end{center}
+\end{table}
+
+
+\section{Conclusion}
+We  have commenced a light WIMP search experiment using SOIPIX.  A brief performance check of a prototype detector was undertaken and an MC simulation that included a detector response was developed.  Using that simulation, we estimated the sensitivity to light WIMPs and the SOIPIX specification required for that.
+
+
+\pagebreak
+
+\begin{thebibliography}{99}
+
+%%
+%%  bibliographic items can be constructed using the LaTeX format in SPIRES:
+%%    see    http://www.slac.stanford.edu/spires/hep/latex.html
+%%  SPIRES will also supply the CITATION line information; please include it.
+%%
+
+ %%Section 1
+
+%\cite{Akerib:2013tjd}
+\bibitem{Akerib:2013tjd} 
+  D.~S.~Akerib {\it et al.}  [LUX Collaboration],
+  ``First results from the LUX dark matter experiment at the Sanford Underground Research Facility,''
+  \textit{Phys.\ Rev.\ Lett}.\  {\bf 112}, 091303 (2014).
+%  [arXiv:1310.8214 [astro-ph.CO]].
+  %%CITATION = ARXIV:1310.8214;%%
+  %800 citations counted in INSPIRE as of 22 juin 2015
+%http://inspirehep.net/record/1262678
+
+
+%\cite{Bernabei:2013xsa}
+\bibitem{Bernabei:2013xsa} 
+  R.~Bernabei {\it et al.},
+  ``Final model independent result of DAMA/LIBRA-phase1,''
+  \textit{Eur.\ Phys.\ J}.\ C {\bf 73}, no. 12, 2648 (2013).
+%  [arXiv:1308.5109 [astro-ph.GA]].
+  %%CITATION = ARXIV:1308.5109;%%
+  %84 citations counted in INSPIRE as of 22 Jun 2015
+%http://inspirehep.net/record/1250415
+
+%\cite{Aalseth:2014eft}
+\bibitem{Aalseth:2014eft} 
+  C.~E.~Aalseth {\it et al.}  [CoGeNT Collaboration],
+  ``Search for An Annual Modulation in Three Years of CoGeNT Dark Matter Detector Data,''
+  \texttt{arXiv:1401.3295 [astro-ph.CO]}.
+  %%CITATION = ARXIV:1401.3295;%%
+  %61 citations counted in INSPIRE as of 22 juin 2015
+%http://inspirehep.net/record/1277055
+
+ %\cite{Agnese:2013rvf}
+\bibitem{Agnese:2013rvf} 
+  R.~Agnese {\it et al.}  [CDMS Collaboration],
+  ``Silicon Detector Dark Matter Results from the Final Exposure of CDMS II,''
+  \textit{Phys.\ Rev.\ Lett.}\  {\bf 111}, no. 25, 251301 (2013).
+  %%CITATION = ARXIV:1304.4279;%%
+  %364 citations counted in INSPIRE as of 22 juin 2015
+ %http://inspirehep.net/record/1228460
+
+
+
+%\cite{Barreto:2011zu}
+\bibitem{Barreto:2011zu} 
+  J.~Barreto {\it et al.}  [DAMIC Collaboration],
+  ``Direct Search for Low Mass Dark Matter Particles with CCDs,''
+  \textit{Phys.\ Lett}.\ B {\bf 711}, 264 (2012).
+%  [arXiv:1105.5191 [astro-ph.IM]].
+  %%CITATION = ARXIV:1105.5191;%%
+  %31 citations counted in INSPIRE as of 22 Jun 2015
+ %http://inspirehep.net/record/901422
+ 
+ 
+ %\cite{Agnese:2013jaa}
+\bibitem{Agnese:2013jaa} 
+  R.~Agnese {\it et al.}  [SuperCDMS Collaboration],
+  ``Search for Low-Mass Weakly Interacting Massive Particles Using Voltage-Assisted Calorimetric Ionization Detection in the SuperCDMS Experiment,''
+  \textit{Phys.\ Rev.\ Lett.}\  {\bf 112}, no. 4, 041302 (2014)
+  %%CITATION = ARXIV:1309.3259;%%
+  %142 citations counted in INSPIRE as of 03 Jul 2015
+
+ %%CRESST found no excess in upgraded data 
+ %\cite{Angloher:2014myn}
+\bibitem{Angloher:2014myn} 
+  G.~Angloher {\it et al.}  [CRESST-II Collaboration],
+  ``Results on low mass WIMPs using an upgraded CRESST-II detector,''
+  \textit{Eur.\ Phys.\ J.}\ C {\bf 74}, no. 12, 3184 (2014).
+%  [arXiv:1407.3146 [astro-ph.CO]].
+  %%CITATION = ARXIV:1407.3146;%%
+  %52 citations counted in INSPIRE as of 23 Jun 2015
+ %%http://inspirehep.net/record/1305879
+
+
+%\cite{Savage:2008er}
+\bibitem{Savage:2008er} 
+  C.~Savage, G.~Gelmini, P.~Gondolo and K.~Freese,
+  ``Compatibility of DAMA/LIBRA dark matter detection with other searches,''
+ \textit{ JCAP} {\bf 0904}, 010 (2009)
+  %%CITATION = ARXIV:0808.3607;%%
+  %265 citations counted in INSPIRE as of 03 Jul 2015
+
+
+%\cite{Angloher:2011uu}
+\bibitem{Angloher:2011uu}
+  G.~Angloher {\it et al.},
+  %``Results from 730 kg days of the CRESST-II Dark Matter Search,''
+ \textit{ Eur.\ Phys.\ J.}\ C {\bf 72} (2012) 1971
+  %%CITATION = ARXIV:1109.0702;%%
+  %565 citations counted in INSPIRE as of 03 Jul 2015
+
+
+
+ 
+ 
+ 
+ %%Section 2
+
+%\cite{Reid:2009nj}
+%\bibitem{Reid:2009nj} 
+%  M.~J.~Reid {\it et al.},
+ % ``Trigonometric Parallaxes of Massive Star Forming Regions: VI. Galactic Structure, Fundamental Parameters and Non-Circular Motions,''
+%  \textit{Astrophys.\ J.}\  {\bf 700}, 137 (2009).
+%  [arXiv:0902.3913 [astro-ph.GA]].
+  %%CITATION = ARXIV:0902.3913;%%
+  %369 citations counted in INSPIRE as of 23 Jul 2015
+
+%\cite{Goodman:1984dc}
+%\bibitem{Goodman:1984dc} 
+%  M.~W.~Goodman and E.~Witten,
+%  ``Detectability of Certain Dark Matter Candidates,''
+%  \textit{Phys.\ Rev.}\ D {\bf 31}, 3059 (1985).
+  %%CITATION = PHRVA,D31,3059;%%
+  %750 citations counted in INSPIRE as of 22 Jun 2015
+%http://inspirehep.net/record/207030
+
+%\bibitem{Jungman}Jungman, G., Kamionkowski, M., Griest, K., ``Supersymmetric dark matter'', \textit{Phys. Rep.} \textbf{267} pp.196-373 (1996)\\
+%\texttt{doi:10.1016/0370-1573(95)00058-5}
+%\cite{Lewin:1995rx}
+\bibitem{Lewin:1995rx} 
+  J.~D.~Lewin and P.~F.~Smith,
+  ``Review of mathematics, numerical factors, and corrections for dark matter experiments based on elastic nuclear recoil,''
+  \textit{Astropart.\ Phys}.\  {\bf 6}, 87 (1996).
+  %%CITATION = APHYE,6,87;%%
+  %625 citations counted in INSPIRE as of 22 Jun 2015
+  % http://inspirehep.net/record/405551
+
+
+%\{Jungman:1995df}
+%\bibitem{Jungman:1995df} 
+%  G.~Jungman, M.~Kamionkowski and K.~Griest,
+  %``Supersymmetric dark matter,''
+%  Phys.\ Rept.\  {\bf 267}, 195 (1996)
+%  [hep-ph/9506380].
+  %%CITATION = HEP-PH/9506380;%%
+  %2575 citations counted in INSPIRE as of 22 Jun 2015
+
+ 
+ 
+
+
+%Chapter 3
+
+%\cite{Arai:2011ara}
+\bibitem{Arai:2011ara} 
+  Y.~Arai {\it et al.},
+  ``Development of SOI pixel process technology,''
+  \textit{Nucl.\ Instrum.\ Meth.}\ A {\bf 636}, no. 1, S31 (2011).
+  %%CITATION = NUIMA,A636,S31;%%
+  %10 citations counted in INSPIRE as of 28 Jun 2015
+
+
+%http://inspirehep.net/record/396520
+%\cite{Tsuru:2014jfa}
+\bibitem{Tsuru:2014jfa} 
+  T.~G.~Tsuru {\it et al.},
+ ``Development and Performance of Kyoto's X-ray Astronomical SOI pixel (SOIPIX) sensor,''
+  \textit{Proc.\ SPIE Int.\ Soc.\ Opt.\ Eng}.\  {\bf 9144}, 914412 (2014).
+%  [arXiv:1408.4556 [astro-ph.IM]].
+  %%CITATION = ARXIV:1408.4556;%%
+%http://inspirehep.net/record/1311579
+
+%\cite{Takeda:2014tza}
+\bibitem{Takeda:2014tza} 
+  A.~Takeda {\it et al.},
+  ``Development and Evaluation of Event-Driven SOI Pixel Detector for X-ray Astronomy,''
+  \textit{PoS TIPP} {\bf 2014}, 138 (2014).
+  %%CITATION = POSCI,TIPP2014,138;%%
+  %1 citations counted in INSPIRE as of 22 juin 2015
+%http://inspirehep.net/record/1360105
+
+
+%\cite{Takeda:2013iaa}
+%\bibitem{Takeda:2013iaa} 
+%  A.~Takeda, Y.~Arai, T.~G.~Tsuru, T.~Tanaka, S. Nakashima, H.~Matsumura, T. ~Imamura, T.~Ohmoto, A.~Iwata,
+%  ``Development of new circuit with CSA for X-ray astronomical SOI pixel detector - improving energy resolution,''
+%\textit{Nuclear Science Symposium and Medical Imaging Conference (NSS/MIC), 2013 IEEE, Seoul,} (2013).
+ 
+ \bibitem{Takeda:JINST}
+ A.~Takeda \textit{et al.},
+ ``Improvement of spectroscopic performance using a charge-sensitive amplifier circuit for an X-ray astronomical SOI pixel detector,''
+ \textit{JINST} {\bf 10}, C06005 (2015).
+ 
+ %%Chap.4 
+ %\cite{Uchida:2008fha}
+\bibitem{Uchida:2008fha} 
+  T.~Uchida,
+  ``Hardware-Based TCP Processor for Gigabit Ethernet,''
+  \textit{IEEE Trans.\ Nucl.\ Sci.}\  {\bf 55}, no. 3, 1631 (2008).
+  %%CITATION = IETNA,55,1631;%%
+  %15 citations counted in INSPIRE as of 22 Jul 2015
+ 
+ %\cite{Agostinelli:2002hh}
+\bibitem{Agostinelli:2002hh} 
+  S.~Agostinelli {\it et al.}  [GEANT4 Collaboration],
+  ``GEANT4: A Simulation toolkit,''
+  \textit{Nucl.\ Instrum.\ Meth.}\ A {\bf 506}, 250 (2003).
+  %%CITATION = NUIMA,A506,250;%%
+  %5279 citations counted in INSPIRE as of 22 Jun 2015
+%  https://inspirehep.net/record/593382
+ 
+ %\cite{Allison:2006ve}
+\bibitem{Allison:2006ve} 
+  J.~Allison {\it et al.},
+  ``Geant4 developments and applications,''
+  \textit{IEEE Trans.\ Nucl.\ Sci.}\  {\bf 53}, 270 (2006).
+  %%CITATION = IETNA,53,270;%%
+  %1117 citations counted in INSPIRE as of 22 Jun 2015
+ %https://inspirehep.net/record/715388
+ 
+ 
+ %% chap 5
+ 
+ %\cite{Bungau:2005xp}
+\bibitem{Bungau:2005xp} 
+  C.~Bungau {\it et al.},
+  ``Monte Carlo studies of combined shielding and veto techniques for neutron background reduction in underground dark matter experiments based on liquid noble gas targets,''
+  \textit{Astropart.\ Phys.}\  {\bf 23}, 97 (2005).
+  %%CITATION = APHYE,23,97;%%
+  %18 citations counted in INSPIRE as of 20 Jul 2015
+ 
+ 
+ \end{thebibliography}
+
+\end{document}
+
+
